@@ -4,6 +4,7 @@ Created on May 20, 2014
 @author: Angel
 '''
 import locale
+import struct
 
 class DvbCPacketParser(object):
     '''
@@ -30,6 +31,10 @@ class DvbCPacketParser(object):
                     elif len(dvbCPacket) != self.DVB_C_TRANSPORT_STREAM_PACKET_SIZE:
                         print '[ERROR] We have a packet with a size %d and not %d that shouldn\'t happen' \
                               % (len(dvbCPacket), self.DVB_C_TRANSPORT_STREAM_PACKET_SIZE)
+                        break
+
+                    packetHeader = struct.unpack('<BH', dvbCPacket)
+                    pid = packetHeader[1] & 0x1fff
                     self.packetCount += 1
 
         except Exception as e:

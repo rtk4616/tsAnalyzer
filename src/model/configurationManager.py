@@ -30,6 +30,7 @@ class ConfigurationManager(object):
 
         except Exception as e:
             print '[ERROR] we couldn\'t apply the locale: ' + str(e)
+            print 'Using default locale'
             locale.setlocale(locale.LC_ALL, '')
 
     def getLocale(self):
