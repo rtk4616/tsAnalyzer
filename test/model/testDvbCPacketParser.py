@@ -10,6 +10,7 @@ class Test(unittest.TestCase):
     def testSimpleParse(self):
         packetParser = DvbCPacketParser(self.TRANSPORT_STREAM_RECORDING_PATH_1)
         packetParser.parse()
+        packetParser.stdOutputReport()
 
 if __name__ == "__main__":
     unittest.main()
