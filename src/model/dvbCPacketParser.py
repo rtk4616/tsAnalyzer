@@ -3,6 +3,7 @@ Created on May 20, 2014
 
 @author: Angel
 '''
+import locale
 
 class DvbCPacketParser(object):
     '''
@@ -39,4 +40,4 @@ class DvbCPacketParser(object):
         print '             TS Analyzer Results             '
         print '---------------------------------------------'
         print ''
-        print 'packet count: ' + str(self.packetCount)
+        print 'packet count: ' + locale.format("%d", self.packetCount, grouping=True)
