@@ -5,6 +5,7 @@ Created on May 20, 2014
 '''
 import locale
 import struct
+from model.packetIdentifier import PacketIdentifier
 
 class DvbCPacketParser(object):
     '''
@@ -33,8 +34,14 @@ class DvbCPacketParser(object):
                               % (len(dvbCPacket), self.DVB_C_TRANSPORT_STREAM_PACKET_SIZE)
                         break
 
-                    packetHeader = struct.unpack('<BH', dvbCPacket)
-                    pid = packetHeader[1] & 0x1fff
+                    packetHeader = struct.unpack('>BH', dvbCPacket[:3])
+                    packetIdNumber = packetHeader[1] & 0x1fff
+                    packetId = PacketIdentifier(packetIdNumber)
+                    # print 'packetIdNumber ' + str(packetIdNumber)
+
+                    if packetId.isPatTable():
+                        print 'PAT found'
+
                     self.packetCount += 1
 
         except Exception as e:
