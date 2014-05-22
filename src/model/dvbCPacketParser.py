@@ -6,6 +6,7 @@ Created on May 20, 2014
 import locale
 import struct
 from model.packetIdentifier import PacketIdentifier
+from model.programAssociationTable import ProgramAssociationTable
 
 class DvbCPacketParser(object):
     '''
@@ -26,6 +27,8 @@ class DvbCPacketParser(object):
         try:
             with open(self.filePath, 'rb') as transportStreamFile:
                 while True:
+                    payloadStart = 0
+                    adaptationField = False
                     dvbCPacket = transportStreamFile.read(self.DVB_C_TRANSPORT_STREAM_PACKET_SIZE)
                     if not dvbCPacket:
                         break
@@ -34,13 +37,20 @@ class DvbCPacketParser(object):
                               % (len(dvbCPacket), self.DVB_C_TRANSPORT_STREAM_PACKET_SIZE)
                         break
 
-                    packetHeader = struct.unpack('>BH', dvbCPacket[:3])
+                    packetHeader = struct.unpack('>BHB', dvbCPacket[:4])
+
+                    if adaptationField:
+                        adaptationFieldLength = struct.unpack('>B', dvbCPacket[4:5])
+                        print 'adaptationFieldLength ' + str(adaptationFieldLength[0])
+
                     packetIdNumber = packetHeader[1] & 0x1fff
                     packetId = PacketIdentifier(packetIdNumber)
-                    # print 'packetIdNumber ' + str(packetIdNumber)
 
                     if packetId.isPatTable():
                         print 'PAT found'
+                        if payloadStart:
+                            ProgramAssociationTable(dvbCPacket[payloadStart:])
+
 
                     self.packetCount += 1
 
