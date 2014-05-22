@@ -5,6 +5,7 @@ Created on May 20, 2014
 '''
 import locale
 import struct
+import time
 from model.packetIdentifier import PacketIdentifier
 from model.programAssociationTable import ProgramAssociationTable
 
@@ -14,6 +15,7 @@ class DvbCPacketParser(object):
     '''
     DVB_C_TRANSPORT_STREAM_PACKET_SIZE = 188
     filePath = ''
+    parseElapsedTime = 0
     packetCount = 0
 
 
@@ -25,6 +27,7 @@ class DvbCPacketParser(object):
 
     def parse(self):
         try:
+            startTime = time.time()
             with open(self.filePath, 'rb') as transportStreamFile:
                 while True:
                     payloadStart = 0
@@ -54,6 +57,7 @@ class DvbCPacketParser(object):
 
                     self.packetCount += 1
 
+            self.parseElapsedTime = time.time() - startTime
         except Exception as e:
             print '[ERROR] ohh something weird happen: ' + str(e)
 
@@ -63,3 +67,5 @@ class DvbCPacketParser(object):
         print '---------------------------------------------'
         print ''
         print 'packet count: ' + locale.format("%d", self.packetCount, grouping=True)
+        print ''
+        print 'parsing took: ' + "{:.2f}".format(self.parseElapsedTime) + 's'
