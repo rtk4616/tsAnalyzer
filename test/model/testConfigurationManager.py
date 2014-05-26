@@ -5,7 +5,7 @@ from model.configurationManager import ConfigurationManager
 
 class Test(unittest.TestCase):
 
-    TEST_CONFIGURATION_PATH = './../data/configuration.json'
+    TEST_CONFIGURATION_PATH = './test/data/configuration.json'
     TEST_LOCALE_STRING = "English_United States.1252"
 
     def testConfigurationLoad(self):

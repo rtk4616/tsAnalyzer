@@ -27,6 +27,9 @@ class ConfigurationManager(object):
         self.configurationPath = configurationPath
         self.__load()
 
+        ''' Setting logging level '''
+        logging.basicConfig()
+
         ''' Apply configuration locale '''
         try:
             locale.setlocale(locale.LC_ALL, str(self.getLocale()))
@@ -35,9 +38,6 @@ class ConfigurationManager(object):
             self.logger.error('we couldn\'t apply the locale', exc_info=True)
             self.logger.info('Using default locale')
             locale.setlocale(locale.LC_ALL, '')
-
-        ''' Setting logging level '''
-
 
     def getLocale(self):
         return self.configurationDict[self.LOCALE_KEY]

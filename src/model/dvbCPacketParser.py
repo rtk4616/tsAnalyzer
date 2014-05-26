@@ -17,22 +17,25 @@ class DvbCPacketParser(object):
     DVB_C_TRANSPORT_STREAM_PACKET_SIZE = 188
     filePath = ''
     parseElapsedTime = 0
-    packetCount = 0
     logger = None
 
-    def __init__(self, filePath):
+    ''' Parsed items '''
+    packetCount = 0
+    transportStreamId = 0
+
+    def __init__(self, filePath, logger):
         '''
         Constructor
         '''
         self.filePath = filePath
-        self.logger = logging.getLogger(__name__)
+        self.logger = logger
 
     def parse(self):
         try:
             startTime = time.time()
             with open(self.filePath, 'rb') as transportStreamFile:
                 while True:
-                    payloadStart = 0
+                    pointerField = 0
                     adaptationField = False
                     payload = False
                     dvbCPacket = transportStreamFile.read(self.DVB_C_TRANSPORT_STREAM_PACKET_SIZE)
@@ -46,24 +49,28 @@ class DvbCPacketParser(object):
                     packetHeader = struct.unpack('>BHB', dvbCPacket[:4])
                     adaptationField = ((packetHeader[2] & 0x20) >> 5) & 0xff
                     payload = ((packetHeader[2] & 0x10) >> 4) & 0xff
+                    pointerFieldLocation = 4
 
                     if adaptationField:
+                        self.logger.debug('Adaptation field')
                         adaptationFieldLength = struct.unpack('>B', dvbCPacket[4:5])
+                        pointerFieldLocation =+ adaptationFieldLength[0]
 
                     packetIdNumber = packetHeader[1] & 0x1fff
                     packetId = PacketIdentifier(packetIdNumber)
 
                     if packetId.isPatTable():
                         self.logger.debug('PAT found')
-                        if payloadStart:
-                            ProgramAssociationTable(dvbCPacket[payloadStart:])
-
+                        if payload:
+                            pointerField = struct.unpack('>B', dvbCPacket[pointerFieldLocation:pointerFieldLocation +1])
+                            patTable = ProgramAssociationTable(dvbCPacket[pointerField[0] + pointerFieldLocation + 1:])
+                            self.transportStreamId = patTable.getTransportStreamId()
 
                     self.packetCount += 1
 
             self.parseElapsedTime = time.time() - startTime
         except Exception:
-            self.logger.error('ohh something weird happen')
+            self.logger.error('ohh something weird happen', exc_info=True)
 
     def stdOutputReport(self):
         print '---------------------------------------------'
@@ -71,5 +78,6 @@ class DvbCPacketParser(object):
         print '---------------------------------------------'
         print ''
         print 'packet count: ' + locale.format("%d", self.packetCount, grouping=True)
+        print 'transport stream Id: ' + str(self.transportStreamId)
         print ''
         print 'parsing took: ' + "{:.2f}".format(self.parseElapsedTime) + 's'
