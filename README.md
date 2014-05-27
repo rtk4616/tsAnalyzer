@@ -24,3 +24,13 @@ Tests
 To run the tests:
 
     nosetests --with-coverage --cover-package=.
+
+Release process
+---------------
+
+Windows
+-------
+
+Using py2exe:
+
+    python setup.py py2exe
