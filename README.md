@@ -24,4 +24,3 @@ Tests
 To run the tests:
 
     nosetests --with-coverage --cover-package=.
-
