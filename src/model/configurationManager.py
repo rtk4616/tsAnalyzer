@@ -8,23 +8,20 @@ class ConfigurationManager(object):
     '''
     classdocs
     '''
-    configurationPath = ''
     configurationDict = []
     logger = None
     LOCALE_KEY = 'locale'
 
+    defaultConfiguration = {
+        "locale": "English_United States.1252",
+        "loggingLevel": "INFO"
+    }
+
     def __load(self):
-        try:
-            with open(self.configurationPath, 'r') as configurationFile:
-                configuration = configurationFile.read()
-                self.configurationDict = json.loads(configuration)
+        self.configurationDict = self.defaultConfiguration
 
-        except Exception:
-            self.logger.error('We couldn\'t read the configuration', exc_info=True)
-
-    def __init__(self, configurationPath):
+    def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.configurationPath = configurationPath
         self.__load()
 
         ''' Setting logging level '''

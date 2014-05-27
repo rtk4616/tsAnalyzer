@@ -7,8 +7,8 @@ import locale
 import struct
 import time
 import logging
-from model.packetIdentifier import PacketIdentifier
-from model.programAssociationTable import ProgramAssociationTable
+from src.model.packetIdentifier import PacketIdentifier
+from src.model.programAssociationTable import ProgramAssociationTable
 
 class DvbCPacketParser(object):
     '''
