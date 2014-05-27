@@ -6,7 +6,7 @@ from glob import glob
 import py2exe
 
 __name__ = 'tsAnalyzer'
-__version__ ='0.0.1'
+__version__ ='0.0.2'
 
 setup(
     name = __name__,
