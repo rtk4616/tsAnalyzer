@@ -10,18 +10,8 @@ python (2.7.6):
 
         https://www.python.org/downloads/
 
-nose:
-
-		pip install nose
-
-coverage:
-
-        pip install coverage
-
 Tests
 -----
-
-To run the tests:
 
     nosetests --with-coverage --cover-package=.
 
