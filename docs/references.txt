@@ -15,3 +15,5 @@ PYTHON
 ------
 
 http://victorlin.me/posts/2012/08/26/good-logging-practice-in-python
+http://stackoverflow.com/questions/2933/an-executable-python-app
+http://www.py2exe.org/index.cgi/ListOfOptions
