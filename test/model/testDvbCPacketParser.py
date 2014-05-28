@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
     logger = None
 
     def setUp(self):
-        locale.setlocale(locale.LC_ALL, 'English_United States.1252')
+        locale.setlocale(locale.LC_ALL, '')
         self.logger = logging.getLogger(__name__)
         logging.basicConfig(level=logging.DEBUG)
 
@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
     def testSimpleParse(self):
         packetParser = DvbCPacketParser(self.TRANSPORT_STREAM_RECORDING_PATH_1, self.logger)
         packetParser.parse()
- #       packetParser.stdOutputReport()
+        packetParser.stdOutputReport()
 
 if __name__ == "__main__":
     unittest.main()
