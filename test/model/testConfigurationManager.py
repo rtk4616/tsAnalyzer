@@ -1,7 +1,7 @@
 __author__ = 'Angel'
 
 import unittest
-from model.configurationManager import ConfigurationManager
+from src.model.configurationManager import ConfigurationManager
 
 class Test(unittest.TestCase):
 

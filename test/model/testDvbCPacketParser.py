@@ -3,7 +3,7 @@ __author__ = 'Angel'
 import unittest
 import locale
 import logging
-from model.dvbCPacketParser import DvbCPacketParser
+from src.model.dvbCPacketParser import DvbCPacketParser
 
 class Test(unittest.TestCase):
 

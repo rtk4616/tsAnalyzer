@@ -2,7 +2,7 @@ __author__ = 'Angel'
 
 
 import unittest
-from model.packetIdentifier import PacketIdentifier
+from src.model.packetIdentifier import PacketIdentifier
 
 class Test(unittest.TestCase):
 
