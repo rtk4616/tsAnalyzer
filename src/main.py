@@ -12,6 +12,10 @@ from src.model.configurationManager import ConfigurationManager
 
 if __name__ == '__main__':
     logger = logging.getLogger(__name__)
+    print '-------------------------------------'
+    print'              tsAnalyzer              '
+    print '-------------------------------------'
+    print ''
 
     try:
         parser = argparse.ArgumentParser(prog='tsAnalyzer')

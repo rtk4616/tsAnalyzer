@@ -7,7 +7,7 @@ from model.dvbCPacketParser import DvbCPacketParser
 
 class Test(unittest.TestCase):
 
-    TRANSPORT_STREAM_RECORDING_PATH_1 = './test/data/synopsis2.ts'
+    TRANSPORT_STREAM_RECORDING_PATH_1 = './test/data/transportStreamWithPatAndTsId.ts'
     logger = None
 
     def setUp(self):
