@@ -44,7 +44,7 @@ class ConfigurationManager(object):
 
         ''' Reading language '''
         try:
-            with open(self.configurationDict[self.LOCALE_FOLDER] + "/" + "default.py") as languageFile:
+            with open(self.configurationDict[self.LOCALE_FOLDER] + "/" + "default.json") as languageFile:
                 self.activeLanguageDict = json.load(languageFile)
 
         except Exception:
