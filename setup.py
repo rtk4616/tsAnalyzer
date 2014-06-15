@@ -2,6 +2,7 @@ __author__ = 'Angel'
 
 from distutils.core import setup
 from setuptools import find_packages
+import py2exe
 
 __name__ = 'tsAnalyzer'
 __version__ ='0.0.2'
@@ -24,5 +25,6 @@ setup(
                 "script": "./src/main.py",
                 "dest_base" : "tsAnalyzer-" + __version__
               }],
+    data_files=[("locale",["locale/localeManager.py"])],
     zipfile = None
     )
