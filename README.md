@@ -15,6 +15,12 @@ Tests
 
     nosetests --with-coverage --cover-package=.
 
+Run
+---
+    python -m src.main
+
+
+
 Release process
 ---------------
 

@@ -18,12 +18,11 @@ if __name__ == '__main__':
     print ''
 
     try:
+        configManager = ConfigurationManager()
         parser = argparse.ArgumentParser(prog='tsAnalyzer')
         parser.add_argument("tsRecordingPath", help="Path to the transport stream recording to parse")
         args = parser.parse_args()
         if args.tsRecordingPath:
-            configManager = ConfigurationManager()
-
             dvbCParser = DvbCPacketParser(args.tsRecordingPath, logger)
             dvbCParser.parse()
             dvbCParser.stdOutputReport()
